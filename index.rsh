@@ -28,8 +28,6 @@ export const main = Reach.App(
     Participant('Blog', BlogInterface), Participant('Post', PostInterface), ParticipantClass('Subscriber', SubscriberInterface),
   ],
   (Blog, Post, Subscriber) => {
-    // const showOutcome = (winners) =>
-    //   each([Funder, Buyer], () => interact.showOutcome(winners));
     Blog.only(() => {
       const _params = interact.createStream();
       const [blogOwner, id] = declassify([_params.blogOwner, _params.id]);
