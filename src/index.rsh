@@ -11,31 +11,33 @@ export const main =
       meow: Bytes(20)
     }),
     ParticipantClass('Subscriber', {
-      // want: Fun([UInt], Null),
       got: Fun([Bytes(20)], Null)
     })],
     (A, B) => {
-      // A.only(() => {
-      //   const request = declassify(interact.request);
-      // });
-      // A.publish(request);
-      // commit();
-
-      // B.only(() => {
-      //   interact.want(request);
-      // });
-      // B.pay(request);
-      // commit();
-
-      A.only(() => {
-        const meow = declassify(interact.meow);
-      });
-      A.publish(meow);
-      // transfer(request).to(A);
+      A.publish(); commit();
+      B.publish();
+      const [shouldContinue] =
+        parallelReduce([true])
+          .invariant(balance() == 0)
+          .while(shouldContinue)
+          .case(
+            A,
+            () => {
+              const meow = declassify(interact.meow);
+              return ({msg: meow})
+            },
+            // (_) => meow,
+            (meow) => {
+              commit();
+              A.publish();
+      
+              B.only(() => {
+                interact.got(meow);
+              });
+              return [true];
+            }
+          )
+          // .timeout(false);
       commit();
-
-      B.only(() => {
-        interact.got(meow);
-      });
       exit();
     });
