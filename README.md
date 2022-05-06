@@ -25,3 +25,7 @@ If you modify `src/index.rsh`, you must run the `compile-rsh` script so that Rea
 ```bash
 npm run compile-rsh
 ```
+If you want to test the contract with play javascript run:
+```bash
+npm run run-rsh
+```
