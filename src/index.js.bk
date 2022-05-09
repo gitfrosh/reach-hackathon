@@ -68,14 +68,15 @@ class Creator extends React.Component {
     this.setState({ mode: 'BackendRunning', ctcInfoStr });
   }
   async meow() { // Fun([], Bytes(1000)
-    // const meow = await new Promise(resolveMeow => {
-    //   this.setState({ mode: 'EnterMeow', resolveMeow });
-    // });
-    // this.setState({ mode: 'BackendRunning', meow });
-    return "Test";
+    const meow = await new Promise(resolveMeow => {
+      console.log(resolveMeow)
+      this.setState({ mode: 'EnterMeow', resolveMeow });
+    });
+    this.setState({ mode: 'BackendRunning', meow });
+    return meow || "Test";
   }
   // enterInfo(meow) { this.setState({ mode: 'RunBackend', meow }); } // from mode: EnterInfo
-  enterMeow(meow) { this.setState({ mode: 'RunBackend', meow }); } // from mode: EnterInfo
+  enterMeow(meow) { this.state.resolveMeow(meow) } // from mode: EnterInfo
 
   async runBackend() {
     const { ctc, meow } = this.state;
@@ -93,6 +94,7 @@ class Creator extends React.Component {
     let alice = null;
     const parent = this;
     const { mode, ctcInfoStr, requestStandard, meow } = this.state;
+    console.log(mode, meow)
     if (mode === 'Deploy') {
       alice = <CreatorViews.Deploy {...{ parent }} />;
     } else if (mode === 'EnterMeow') {
