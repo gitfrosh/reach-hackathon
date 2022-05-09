@@ -93,8 +93,8 @@ export async function Creator(ctcTop, interact) {
     
     return v60;})()) {
     const v69 = stdlib.protect(ctc0, await interact.meow(), {
-      at: './index.rsh:26:48:application',
-      fs: ['at ./index.rsh:25:15:application call to [unknown function] (defined at: ./index.rsh:25:19:function exp)'],
+      at: './index.rsh:25:48:application',
+      fs: ['at ./index.rsh:24:15:application call to [unknown function] (defined at: ./index.rsh:24:19:function exp)'],
       msg: 'meow',
       who: 'Creator'
       });
@@ -106,7 +106,7 @@ export async function Creator(ctcTop, interact) {
       lct: v61,
       onlyIf: true,
       out_tys: [ctc0],
-      pay: [stdlib.checkedBigNumberify('./index.rsh:28:11:decimal', stdlib.UInt_max, '0'), []],
+      pay: [stdlib.checkedBigNumberify('./index.rsh:27:11:decimal', stdlib.UInt_max, '0'), []],
       sim_p: (async (txn2) => {
         const sim_r = { txns: [], mapRefs: [], maps: [] };
         let sim_txn_ctr = stdlib.UInt_max;
@@ -148,7 +148,7 @@ export async function Creator(ctcTop, interact) {
     ;
     const v74 = stdlib.addressEq(v57, v70);
     stdlib.assert(v74, {
-      at: './index.rsh:28:11:dot',
+      at: './index.rsh:27:11:dot',
       fs: [],
       msg: 'sender correct',
       who: 'Creator'
@@ -205,14 +205,14 @@ export async function Subscriber(ctcTop, interact) {
     ;
     const v74 = stdlib.addressEq(v57, v70);
     stdlib.assert(v74, {
-      at: './index.rsh:28:11:dot',
+      at: './index.rsh:27:11:dot',
       fs: [],
       msg: 'sender correct',
       who: 'Subscriber'
       });
     stdlib.protect(ctc1, await interact.got(v71), {
-      at: './index.rsh:30:23:application',
-      fs: ['at ./index.rsh:30:23:application call to [unknown function] (defined at: ./index.rsh:30:23:function exp)', 'at ./index.rsh:30:23:application call to "liftedInteract" (defined at: ./index.rsh:30:23:application)'],
+      at: './index.rsh:29:23:application',
+      fs: ['at ./index.rsh:29:23:application call to [unknown function] (defined at: ./index.rsh:29:23:function exp)', 'at ./index.rsh:29:23:application call to "liftedInteract" (defined at: ./index.rsh:29:23:application)'],
       msg: 'got',
       who: 'Subscriber'
       });
@@ -250,13 +250,13 @@ const _ALGO = {
   };
 export const _stateSourceMap = {
   2: {
-    at: './index.rsh:35:15:after expr stmt semicolon',
+    at: './index.rsh:34:15:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'
     },
   3: {
-    at: './index.rsh:23:17:after expr stmt semicolon',
+    at: './index.rsh:22:17:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'

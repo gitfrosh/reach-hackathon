@@ -63,17 +63,31 @@ class Creator extends React.Component {
   }
   async deploy() { // from mode: Deploy
     const ctc = this.props.acc.contract(backend); // deploys contract
-    this.setState({ mode: 'EnterInfo', ctc });
+    backend.Creator(ctc, this);
     const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
-    this.setState({ ctcInfoStr });
+    this.setState({ mode: 'BackendRunning', ctcInfoStr });
   }
-  enterInfo(meow) { this.setState({ mode: 'RunBackend', meow }); } // from mode: EnterInfo
+  async meow() { // Fun([], Bytes(1000)
+    // const meow = await new Promise(resolveMeow => {
+    //   this.setState({ mode: 'EnterMeow', resolveMeow });
+    // });
+    // this.setState({ mode: 'BackendRunning', meow });
+    return "Test";
+  }
+  // enterInfo(meow) { this.setState({ mode: 'RunBackend', meow }); } // from mode: EnterInfo
+  enterMeow(meow) { this.setState({ mode: 'RunBackend', meow }); } // from mode: EnterInfo
+
   async runBackend() {
     const { ctc, meow } = this.state;
+    console.log(ctc, meow)
     this.setState({ mode: 'BackendRunning' });
     console.log(meow)
-    await backend.Creator(ctc, { meow });
-    this.setState({ mode: 'BackendRan' });
+    const interact = {
+      meow: () => meow
+    };
+    const post = await backend.Creator(ctc, interact);
+    console.log(post) // empty
+    this.setState({ mode: 'BackendRan' }); // not working, loop
   }
   render() {
     let alice = null;
@@ -81,10 +95,10 @@ class Creator extends React.Component {
     const { mode, ctcInfoStr, requestStandard, meow } = this.state;
     if (mode === 'Deploy') {
       alice = <CreatorViews.Deploy {...{ parent }} />;
-    } else if (mode === 'EnterInfo') {
-      alice = <CreatorViews.EnterInfo {...{ parent, defaultInfo }} />;
-    } else if (mode === 'RunBackend') {
-      alice = <CreatorViews.RunBackend {...{ parent, meow, requestStandard, standardUnit }} />;
+    } else if (mode === 'EnterMeow') {
+      alice = <CreatorViews.EnterMeow {...{ parent, defaultInfo }} />;
+    // } else if (mode === 'RunBackend') {
+    //   alice = <CreatorViews.RunBackend {...{ parent, meow, requestStandard, standardUnit }} />;
     } else if (mode === 'BackendRunning') {
       alice = <CreatorViews.BackendRunning {...{ ctcInfoStr }} />;
     } else { // 'BackendRan'
@@ -109,7 +123,7 @@ class Subscriber extends React.Component {
       },
     };
     await backend.Subscriber(ctc, interact);
-    this.setState({ mode: 'DisplayInfo'})
+    this.setState({ mode: 'DisplayInfo' })
   }
   render() {
     let bob = null;
@@ -117,7 +131,7 @@ class Subscriber extends React.Component {
     const { mode, info } = this.state;
     if (mode === 'RunBackend') {
       bob = <SubscriberViews.RunBackend {...{ parent }} />
-    } else { 
+    } else {
       bob = <SubscriberViews.DisplayInfo {...{ info }} />
     }
     return <SubscriberViews.SubscriberWrapper {...{ bob }} />;

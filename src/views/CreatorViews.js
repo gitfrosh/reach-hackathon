@@ -18,13 +18,13 @@ export class Deploy extends React.Component {
   }
 }
 
-export class EnterInfo extends React.Component {
+export class EnterMeow extends React.Component {
   render() {
     const { parent, defaultInfo } = this.props;
     const { info } = this.state || {};
     return (
       <>
-        <br /> <Card title="Hey Creator, send your first meow now!">
+        <br /> <Card title="Hey Creator, send your meow now!">
           <Space direction='vertical'> 
             <Input
               onChange={(e) => {
@@ -33,7 +33,7 @@ export class EnterInfo extends React.Component {
               } }
               placeholder={defaultInfo}
             />
-            <Button type="primary" onClick={() => parent.enterInfo(info || defaultInfo)}>Start blog</Button></Space>
+            <Button type="primary" onClick={() => parent.enterMeow(info || defaultInfo)}>Publish post</Button></Space>
         </Card>
       </>
 
@@ -41,31 +41,31 @@ export class EnterInfo extends React.Component {
   }
 }
 
-export class RunBackend extends React.Component {
-  render() {
-    const { parent, info, requestStandard, standardUnit } = this.props;
-    return (
-      <div>
-        <p>
-          You request <strong>{requestStandard}</strong> {standardUnit + ' '}
-          to reveal secret info: <strong>{info}</strong>
-        </p>
-        <p>
-          Ready to connect to the contract?
-        </p>
-        <p>
-          You will be prompted to pay for two transactions.
-          The first transaction will publish your requested amount,
-          and the second will publish your secret while simultaneously
-          retrieving the requested amount from the contract.
-        </p>
-        <button
-          onClick={() => parent.runBackend()}
-        >Connect</button>
-      </div>
-    );
-  }
-}
+// export class RunBackend extends React.Component {
+//   render() {
+//     const { parent, info, requestStandard, standardUnit } = this.props;
+//     return (
+//       <div>
+//         <p>
+//           You request <strong>{requestStandard}</strong> {standardUnit + ' '}
+//           to reveal secret info: <strong>{info}</strong>
+//         </p>
+//         <p>
+//           Ready to connect to the contract?
+//         </p>
+//         <p>
+//           You will be prompted to pay foBackendRunningr two transactions.
+//           The first transaction will publish your requested amount,
+//           and the second will publish your secret while simultaneously
+//           retrieving the requested amount from the contract.
+//         </p>
+//         <button
+//           onClick={() => parent.runBackend()}
+//         >Connect</button>
+//       </div>
+//     );
+//   }
+// }
 
 export class BackendRunning extends React.Component {
   async copyToClipborad(button) {

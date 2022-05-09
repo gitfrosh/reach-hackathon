@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Space, Button, Typography, Menu, Card, Breadcrumb } from 'antd';
+import { Layout, Alert, Space, Button, Typography, Menu, Card, Breadcrumb } from 'antd';
 
 const { Header, Content, Footer } = Layout;
 export class Wrapper extends React.Component {
@@ -39,10 +39,15 @@ export class Wrapper extends React.Component {
 export class ConnectAccount extends React.Component {
   render() {
     return (
-      <div>
-        Please wait while we connect to your account.
-        If this takes more than a few seconds, there may be something wrong.
-      </div>
+      <Alert
+      style={{ marginTop: '1rem', textAlign: "left" }}
+        message="Please wait.."
+        description="Please wait while we connect to your account.
+      If this takes more than a few seconds, there may be something wrong.."
+        type="warning"
+        showIcon
+      />
+
     )
   }
 }
