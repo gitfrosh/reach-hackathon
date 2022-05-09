@@ -8,36 +8,29 @@ export const main =
       connectors: [ALGO],
     },
     [Participant('Creator', {
-      meow: Bytes(20)
+      meow: Fun([], Bytes(1000))
     }),
     ParticipantClass('Subscriber', {
-      got: Fun([Bytes(20)], Null)
+      got: Fun([Bytes(1000)], Null)
     })],
     (A, B) => {
-      A.publish(); commit();
-      B.publish();
-      const [shouldContinue] =
-        parallelReduce([true])
-          .invariant(balance() == 0)
-          .while(shouldContinue)
-          .case(
-            A,
-            () => {
-              const meow = declassify(interact.meow);
-              return ({msg: meow})
-            },
-            // (_) => meow,
-            (meow) => {
-              commit();
-              A.publish();
-      
-              B.only(() => {
-                interact.got(meow);
-              });
-              return [true];
-            }
-          )
-          // .timeout(false);
+      A.publish(); 
+
+      var [ shouldContinue ] = [ true ];
+      invariant (balance() == 0);
+      while(shouldContinue) {
+        commit();
+
+        A.only(() => {
+          const meow = declassify(interact.meow());
+        });
+        A.publish(meow);
+ 
+        B.interact.got(meow);
+
+        continue;
+      }
+
       commit();
       exit();
     });

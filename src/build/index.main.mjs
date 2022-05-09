@@ -22,9 +22,7 @@ export function _getViews(s, viewlib) {
     infos: {
       },
     views: {
-      1: [ctc0],
-      4: [ctc0],
-      5: [ctc0]
+      3: [ctc0]
       }
     };
   
@@ -43,11 +41,9 @@ export async function Creator(ctcTop, interact) {
     return Promise.reject(new Error(`The backend for Creator expects to receive an interact object as its second argument.`));}
   const ctc = ctcTop._initialize();
   const stdlib = ctc.stdlib;
-  const ctc0 = stdlib.T_Bytes(stdlib.checkedBigNumberify('<builtin>', stdlib.UInt_max, '20'));
+  const ctc0 = stdlib.T_Bytes(stdlib.checkedBigNumberify('<builtin>', stdlib.UInt_max, '1000'));
   const ctc1 = stdlib.T_Address;
   
-  
-  const v84 = stdlib.protect(ctc0, interact.meow, 'for Creator\'s interact field meow');
   
   const txn1 = await (ctc.sendrecv({
     args: [],
@@ -63,11 +59,24 @@ export async function Creator(ctcTop, interact) {
       const getSimTokCtr = () => { sim_txn_ctr = sim_txn_ctr.sub(1); return sim_txn_ctr; };
       
       
-      const {data: [], secs: v87, time: v86, didSend: v23, from: v85 } = txn1;
+      const {data: [], secs: v59, time: v58, didSend: v22, from: v57 } = txn1;
       
       ;
-      sim_r.isHalt = false;
+      const v60 = true;
+      const v61 = v58;
       
+      if (await (async () => {
+        
+        return v60;})()) {
+        sim_r.isHalt = false;
+        }
+      else {
+        sim_r.txns.push({
+          kind: 'halt',
+          tok: undefined /* Nothing */
+          })
+        sim_r.isHalt = true;
+        }
       return sim_r;
       }),
     soloSend: true,
@@ -75,90 +84,50 @@ export async function Creator(ctcTop, interact) {
     tys: [],
     waitIfNotPresent: false
     }));
-  const {data: [], secs: v87, time: v86, didSend: v23, from: v85 } = txn1;
+  const {data: [], secs: v59, time: v58, didSend: v22, from: v57 } = txn1;
   ;
-  const txn2 = await (ctc.recv({
-    didSend: false,
-    evt_cnt: 0,
-    funcNum: 1,
-    out_tys: [],
-    timeoutAt: undefined /* mto */,
-    waitIfNotPresent: false
-    }));
-  const {data: [], secs: v90, time: v89, didSend: v27, from: v88 } = txn2;
-  ;
-  let v91 = true;
-  let v92 = v89;
+  let v60 = true;
+  let v61 = v58;
   
   while (await (async () => {
     
-    return v91;})()) {
-    const txn3 = await (ctc.sendrecv({
-      args: [v85, v84],
-      evt_cnt: 1,
-      funcNum: 3,
-      lct: v92,
-      onlyIf: true,
-      out_tys: [ctc0],
-      pay: [stdlib.checkedBigNumberify('./index.rsh:23:16:decimal', stdlib.UInt_max, '0'), []],
-      sim_p: (async (txn3) => {
-        const sim_r = { txns: [], mapRefs: [], maps: [] };
-        let sim_txn_ctr = stdlib.UInt_max;
-        const getSimTokCtr = () => { sim_txn_ctr = sim_txn_ctr.sub(1); return sim_txn_ctr; };
-        
-        
-        const {data: [v106], secs: v108, time: v107, didSend: v54, from: v105 } = txn3;
-        
-        ;
-        const v110 = stdlib.addressEq(v85, v105);
-        ;
-        sim_r.isHalt = false;
-        
-        return sim_r;
-        }),
-      soloSend: true,
-      timeoutAt: undefined /* mto */,
-      tys: [ctc1, ctc0],
-      waitIfNotPresent: false
-      }));
-    const {data: [v106], secs: v108, time: v107, didSend: v54, from: v105 } = txn3;
-    ;
-    const v110 = stdlib.addressEq(v85, v105);
-    stdlib.assert(v110, {
-      at: './index.rsh:20:23:dot',
-      fs: [],
-      msg: 'sender correct',
+    return v60;})()) {
+    const v69 = stdlib.protect(ctc0, await interact.meow(), {
+      at: './index.rsh:26:48:application',
+      fs: ['at ./index.rsh:25:15:application call to [unknown function] (defined at: ./index.rsh:25:19:function exp)'],
+      msg: 'meow',
       who: 'Creator'
       });
-    const txn4 = await (ctc.sendrecv({
-      args: [v85],
-      evt_cnt: 0,
-      funcNum: 4,
-      lct: v107,
+    
+    const txn2 = await (ctc.sendrecv({
+      args: [v57, v69],
+      evt_cnt: 1,
+      funcNum: 2,
+      lct: v61,
       onlyIf: true,
-      out_tys: [],
-      pay: [stdlib.checkedBigNumberify('./index.rsh:32:17:decimal', stdlib.UInt_max, '0'), []],
-      sim_p: (async (txn4) => {
+      out_tys: [ctc0],
+      pay: [stdlib.checkedBigNumberify('./index.rsh:28:11:decimal', stdlib.UInt_max, '0'), []],
+      sim_p: (async (txn2) => {
         const sim_r = { txns: [], mapRefs: [], maps: [] };
         let sim_txn_ctr = stdlib.UInt_max;
         const getSimTokCtr = () => { sim_txn_ctr = sim_txn_ctr.sub(1); return sim_txn_ctr; };
         
         
-        const {data: [], secs: v113, time: v112, didSend: v60, from: v111 } = txn4;
+        const {data: [v71], secs: v73, time: v72, didSend: v37, from: v70 } = txn2;
         
         ;
-        const v114 = stdlib.addressEq(v85, v111);
+        const v74 = stdlib.addressEq(v57, v70);
         ;
-        const cv91 = true;
-        const cv92 = v112;
+        const cv60 = true;
+        const cv61 = v72;
         
         await (async () => {
-          const v91 = cv91;
-          const v92 = cv92;
+          const v60 = cv60;
+          const v61 = cv61;
           
           if (await (async () => {
             
-            return v91;})()) {
+            return v60;})()) {
             sim_r.isHalt = false;
             }
           else {
@@ -172,32 +141,28 @@ export async function Creator(ctcTop, interact) {
         }),
       soloSend: true,
       timeoutAt: undefined /* mto */,
-      tys: [ctc1],
+      tys: [ctc1, ctc0],
       waitIfNotPresent: false
       }));
-    const {data: [], secs: v113, time: v112, didSend: v60, from: v111 } = txn4;
+    const {data: [v71], secs: v73, time: v72, didSend: v37, from: v70 } = txn2;
     ;
-    const v114 = stdlib.addressEq(v85, v111);
-    stdlib.assert(v114, {
-      at: './index.rsh:32:17:dot',
-      fs: ['at ./index.rsh:30:20:application call to [unknown function] (defined at: ./index.rsh:30:20:function exp)'],
+    const v74 = stdlib.addressEq(v57, v70);
+    stdlib.assert(v74, {
+      at: './index.rsh:28:11:dot',
+      fs: [],
       msg: 'sender correct',
       who: 'Creator'
       });
-    const cv91 = true;
-    const cv92 = v112;
+    const cv60 = true;
+    const cv61 = v72;
     
-    v91 = cv91;
-    v92 = cv92;
+    v60 = cv60;
+    v61 = cv61;
     
     continue;
     
-    
-    
     }
   return;
-  
-  
   
   
   };
@@ -208,9 +173,8 @@ export async function Subscriber(ctcTop, interact) {
     return Promise.reject(new Error(`The backend for Subscriber expects to receive an interact object as its second argument.`));}
   const ctc = ctcTop._initialize();
   const stdlib = ctc.stdlib;
-  const ctc0 = stdlib.T_Bytes(stdlib.checkedBigNumberify('<builtin>', stdlib.UInt_max, '20'));
+  const ctc0 = stdlib.T_Bytes(stdlib.checkedBigNumberify('<builtin>', stdlib.UInt_max, '1000'));
   const ctc1 = stdlib.T_Null;
-  const ctc2 = stdlib.T_Address;
   
   
   const txn1 = await (ctc.recv({
@@ -221,110 +185,48 @@ export async function Subscriber(ctcTop, interact) {
     timeoutAt: undefined /* mto */,
     waitIfNotPresent: false
     }));
-  const {data: [], secs: v87, time: v86, didSend: v23, from: v85 } = txn1;
+  const {data: [], secs: v59, time: v58, didSend: v22, from: v57 } = txn1;
   ;
-  const txn2 = await (ctc.sendrecv({
-    args: [v85],
-    evt_cnt: 0,
-    funcNum: 1,
-    lct: v86,
-    onlyIf: true,
-    out_tys: [],
-    pay: [stdlib.checkedBigNumberify('./index.rsh:18:9:decimal', stdlib.UInt_max, '0'), []],
-    sim_p: (async (txn2) => {
-      const sim_r = { txns: [], mapRefs: [], maps: [] };
-      let sim_txn_ctr = stdlib.UInt_max;
-      const getSimTokCtr = () => { sim_txn_ctr = sim_txn_ctr.sub(1); return sim_txn_ctr; };
-      
-      
-      const {data: [], secs: v90, time: v89, didSend: v27, from: v88 } = txn2;
-      
-      ;
-      const v91 = true;
-      const v92 = v89;
-      
-      if (await (async () => {
-        
-        return v91;})()) {
-        sim_r.isHalt = false;
-        }
-      else {
-        sim_r.txns.push({
-          kind: 'halt',
-          tok: undefined /* Nothing */
-          })
-        sim_r.isHalt = true;
-        }
-      return sim_r;
-      }),
-    soloSend: false,
-    timeoutAt: undefined /* mto */,
-    tys: [ctc2],
-    waitIfNotPresent: false
-    }));
-  const {data: [], secs: v90, time: v89, didSend: v27, from: v88 } = txn2;
-  ;
-  let v91 = true;
-  let v92 = v89;
+  let v60 = true;
+  let v61 = v58;
   
   while (await (async () => {
     
-    return v91;})()) {
-    const txn3 = await (ctc.recv({
+    return v60;})()) {
+    const txn2 = await (ctc.recv({
       didSend: false,
       evt_cnt: 1,
-      funcNum: 3,
+      funcNum: 2,
       out_tys: [ctc0],
       timeoutAt: undefined /* mto */,
       waitIfNotPresent: false
       }));
-    const {data: [v106], secs: v108, time: v107, didSend: v54, from: v105 } = txn3;
+    const {data: [v71], secs: v73, time: v72, didSend: v37, from: v70 } = txn2;
     ;
-    const v110 = stdlib.addressEq(v85, v105);
-    stdlib.assert(v110, {
-      at: './index.rsh:20:23:dot',
+    const v74 = stdlib.addressEq(v57, v70);
+    stdlib.assert(v74, {
+      at: './index.rsh:28:11:dot',
       fs: [],
       msg: 'sender correct',
       who: 'Subscriber'
       });
-    const txn4 = await (ctc.recv({
-      didSend: false,
-      evt_cnt: 0,
-      funcNum: 4,
-      out_tys: [],
-      timeoutAt: undefined /* mto */,
-      waitIfNotPresent: false
-      }));
-    const {data: [], secs: v113, time: v112, didSend: v60, from: v111 } = txn4;
-    ;
-    const v114 = stdlib.addressEq(v85, v111);
-    stdlib.assert(v114, {
-      at: './index.rsh:32:17:dot',
-      fs: ['at ./index.rsh:30:20:application call to [unknown function] (defined at: ./index.rsh:30:20:function exp)'],
-      msg: 'sender correct',
-      who: 'Subscriber'
-      });
-    stdlib.protect(ctc1, await interact.got(v106), {
-      at: './index.rsh:35:29:application',
-      fs: ['at ./index.rsh:34:21:application call to [unknown function] (defined at: ./index.rsh:34:25:function exp)', 'at ./index.rsh:30:20:application call to [unknown function] (defined at: ./index.rsh:30:20:function exp)'],
+    stdlib.protect(ctc1, await interact.got(v71), {
+      at: './index.rsh:30:23:application',
+      fs: ['at ./index.rsh:30:23:application call to [unknown function] (defined at: ./index.rsh:30:23:function exp)', 'at ./index.rsh:30:23:application call to "liftedInteract" (defined at: ./index.rsh:30:23:application)'],
       msg: 'got',
       who: 'Subscriber'
       });
     
-    const cv91 = true;
-    const cv92 = v112;
+    const cv60 = true;
+    const cv61 = v72;
     
-    v91 = cv91;
-    v92 = cv92;
+    v60 = cv60;
+    v61 = cv61;
     
     continue;
     
-    
-    
     }
   return;
-  
-  
   
   
   };
@@ -334,7 +236,7 @@ const _ALGO = {
     pure: [],
     sigs: []
     },
-  appApproval: `BiAEAAEEBSYCAQAAIjUAMRhBAXUpZEkiWzUBgQhbNQI2GgAXSUEAByI1BCM1BgA2GgIXNQQ2GgM2GgEXSYEDDEAAdkkkDEAALyQSRCU0ARJENARJIhJMNAISEUQoZEk1AzX/gASRJzTzsDT/MQASRDT/IzIGQgCgSCQ0ARJENARJIhJMNAISEUQoZEk1AzX/STUFNf6ABHWAyX80/lCwNP8xABJENP8oSwFXACBnSCU1ATIGNQJCAJxJIwxAACYjEkQjNAESRDQESSISTDQCEhFEKGQ1A4AEmouRdLA0AyMyBkIAM0giNAESRDQESSISTDQCEhFEgARfDav6sIGgjQaIAI4xAChLAVcAIGdIIzUBMgY1AkIAPTX/Nf41/TT+QQAUNP0oSwFXACBnSCQ1ATIGNQJCAB5CAAAxGSUSRLEisgEisggjshAyCbIJMgqyB7NCAAUxGSISRCk0ARY0AhZQZzQGQQAKgAQVH3x1NAdQsDQASSMIMgQSRDEWEkQjQzEZIhJEQv/fIjUBIjUCQv/DNABJSiMINQA4BzIKEkQ4ECMSRDgIEkSJ`,
+  appApproval: `BiAEAAECAyYCAAEAIjUAMRhBAQAoZEkiWzUBgQhbNQI2GgAXSUEAByI1BCM1BgA2GgIXNQQ2GgM2GgEXSSQMQAA3JBJEJTQBEkQ0BEkiEkw0AhIRRClkSTUDNf9JNQU1/oAEVtqdTjT+ULA0/zEAEkQ0/yMyBkIAKSISRCI0ARJENARJIhJMNAISEUSABF8Nq/qwgaCNBogAgzEAIzIGQgAANf81/jX9NP5BABQ0/SlLAVcAIGdIJTUBMgY1AkIAH0IAADEZgQUSRLEisgEisggjshAyCbIJMgqyB7NCAAUxGSISRCg0ARY0AhZQZzQGQQAKgAQVH3x1NAdQsDQASSMIMgQSRDEWEkQjQzEZIhJEQv/fIjUBIjUCQv/DNABJSiMINQA4BzIKEkQ4ECMSRDgIEkSJ`,
   appClear: `Bg==`,
   companionInfo: null,
   extraPages: 0,
@@ -347,27 +249,15 @@ const _ALGO = {
   warnings: []
   };
 export const _stateSourceMap = {
-  1: {
-    at: './index.rsh:17:28:after expr stmt semicolon',
+  2: {
+    at: './index.rsh:35:15:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'
     },
   3: {
-    at: './index.rsh:41:15:after expr stmt semicolon',
+    at: './index.rsh:23:17:after expr stmt semicolon',
     fs: [],
-    msg: null,
-    who: 'Module'
-    },
-  4: {
-    at: './index.rsh:20:23:after expr stmt semicolon',
-    fs: [],
-    msg: null,
-    who: 'Module'
-    },
-  5: {
-    at: './index.rsh:31:23:after expr stmt semicolon',
-    fs: ['at ./index.rsh:30:20:application call to [unknown function] (defined at: ./index.rsh:30:20:function exp)'],
     msg: null,
     who: 'Module'
     }
