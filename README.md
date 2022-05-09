@@ -1,8 +1,6 @@
-# reach-algorand-react-app
+# Reach on Algorand - Microblog #meow
 
-This is a sample React app that uses Reach to generate, deploy, and interact with a smart contract on Algorand.
-
-Inspired by https://github.com/reach-sh/reach-sample-react-app.
+A microblog implementation for Algorand on Reach platform. Creator initiates blog and subscriber receives posts in realtime.
 
 Prerequisites:
 
