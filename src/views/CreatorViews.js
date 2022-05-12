@@ -1,22 +1,25 @@
 import React from 'react';
-import { Space, Input, Button, Card } from 'antd';
+import { Space, Row, Col, Input, Avatar, Button, Comment, Form, Card } from 'antd';
+const { TextArea } = Input;
+const defaultInfo = 'cats are frens';
 
 const sleep = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
 
-export class Deploy extends React.Component {
-  render() {
-    const { parent } = this.props;
-    return (
-      <>
-        <br /> <Card>
-          <Space direction='vertical'> <Input value="#blogname" />
-            <Button type="primary" onClick={() => parent.deploy()}>Start blog</Button></Space>
-        </Card>
-      </>
+// export class Deploy extends React.Component {
+//   render() {
+//     const { parent } = this.props;
+//     console.log(parent)
+//     return (
+//       <>
+//       <Card title="gdf">
+//           <Space direction='vertical'> <Input value="#blogname" />
+//             <Button type="primary" onClick={() => parent.deploy()}>Start blog</Button></Space>
+//         </Card>
+//       </>
 
-    );
-  }
-}
+//     );
+//   }
+// }
 
 export class EnterMeow extends React.Component {
   render() {
@@ -25,15 +28,25 @@ export class EnterMeow extends React.Component {
     return (
       <>
         <br /> <Card title="Hey Creator, send your meow now!">
-          <Space direction='vertical'> 
-            <Input
-              onChange={(e) => {
-                console.log(e.target.value)
-                this.setState({ info: e.target.value })
-              } }
-              placeholder={defaultInfo}
-            />
-            <Button type="primary" onClick={() => parent.enterMeow(info || defaultInfo)}>Publish post</Button></Space>
+          <Comment
+            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+            content={
+              <>              <Form.Item>
+                <TextArea max={200} rows={4} onChange={(e) => {
+                  console.log(e.target.value)
+                  this.setState({ info: e.target.value })
+                }} />
+              </Form.Item>
+                <Form.Item>
+                  <Button onClick={() => parent.enterMeow(info || defaultInfo)} type="primary">
+                    Publish post
+                  </Button>
+                </Form.Item></>
+            }>
+
+          </Comment>
+
+
         </Card>
       </>
 
@@ -68,6 +81,10 @@ export class EnterMeow extends React.Component {
 // }
 
 export class BackendRunning extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { info: '' };
+  }
   async copyToClipborad(button) {
     const { ctcInfoStr } = this.props;
     navigator.clipboard.writeText(ctcInfoStr);
@@ -80,7 +97,10 @@ export class BackendRunning extends React.Component {
   }
 
   render() {
-    const { ctcInfoStr } = this.props;
+    console.log(this.props)
+
+    const { ctcInfoStr, parent, ctcInfo } = this.props;
+    console.log(ctcInfo)
     if (ctcInfoStr === undefined) {
       return (
         <div>
@@ -89,20 +109,61 @@ export class BackendRunning extends React.Component {
         </div>
       )
     } else {
+      console.log(ctcInfo)
       return (
-        <div>
-          <h2>Microblog deployed!</h2>
-          Please give your subscribers the following contract info.
+        <>
+          <Row>
+            <Col span={12}>
+              <div style={{ textAlign: "left" }}>
+                <h1>Hej {ctcInfo?._hex}!</h1>
+              </div></Col>
+            <Col span={12}>
+              <div style={{ textAlign: "right" }}>
+                <Button
+                  onClick={async (e) => this.copyToClipborad(e.currentTarget)}
+                >Copy stream info to clipboard</Button>
+              </div></Col>
 
-          <pre className='ContractInfo'>
-            {ctcInfoStr}
-          </pre>
-          <br />
-          <button
-            onClick={async (e) => this.copyToClipborad(e.currentTarget)}
-          >Copy to clipboard</button>
-          <br />
-        </div>
+          </Row>
+
+
+          <em>Time to blog :)</em>
+          <Comment
+            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+            content={
+              <>              <Form.Item>
+                <TextArea max={200} rows={4} onChange={(e) => {
+                  console.log(e.target.value)
+                  this.setState({ info: e.target.value })
+                }} />
+              </Form.Item>
+                <div style={{ textAlign: "right" }}>
+
+                  <Form.Item>
+                    <Button onClick={() => parent.enterMeow(this.state.info || defaultInfo)} type="primary">
+                      meow!
+                    </Button>
+                  </Form.Item>
+                </div>
+
+              </>
+            }>
+
+          </Comment>
+        </>
+        // <div>
+        //   <h2>Microblog deployed!</h2>
+        //   Please give your subscribers the following contract info.
+
+        //   <pre className='ContractInfo'>
+        //     {ctcInfoStr}
+        //   </pre>
+        //   <br />
+        //   <button
+        //     onClick={async (e) => this.copyToClipborad(e.currentTarget)}
+        //   >Copy to clipboard</button>
+        //   <br />
+        // </div>
       );
     }
   }
@@ -123,9 +184,9 @@ export class CreatorWrapper extends React.Component {
   render() {
     const { alice } = this.props;
     return (
-      <div className="Creator">
+      <Card>
         {alice}
-      </div>
+      </Card>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import {  Card } from 'antd';
 
 export class RunBackend extends React.Component {
   render() {
@@ -54,9 +55,9 @@ export class SubscriberWrapper extends React.Component {
   render() {
     const {bob} = this.props;
     return (
-      <div className='Subscriber'>
+      <Card>
         {bob}
-      </div>
+      </Card>
     );
   }
 }
