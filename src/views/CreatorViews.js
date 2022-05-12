@@ -7,6 +7,8 @@ import {
   Form,
   Card,
 } from 'antd'
+import logo from './../assets/kitty.png'
+
 const { TextArea } = Input
 const defaultInfo = 'cats are frens'
 
@@ -30,7 +32,7 @@ export class BackendRunning extends React.Component {
   }
 
   render() {
-    const { ctcInfoStr, parent, ctcInfo } = this.props
+    const { ctcInfoStr, parent, ctcInfo, resolveMeow } = this.props
     if (ctcInfoStr === undefined) {
       return (
         <div>
@@ -38,13 +40,14 @@ export class BackendRunning extends React.Component {
           than 1 min, something may be wrong.
         </div>
       )
+    }
+    else if (!resolveMeow) {
+      return <>Wating for your first test 'meow' ...</>
     } else {
       return (
         <>
           <PageHeader
-            avatar={{
-              src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
-            }}
+            avatar={{ src: logo }}
             className="site-page-header"
             title={`Hej ${ctcInfo?._hex}!`}
             subTitle="time to blog"
@@ -74,7 +77,6 @@ export class BackendRunning extends React.Component {
                     maxLength={200}
                     rows={4}
                     onChange={(e) => {
-                      console.log(e.target.value)
                       this.setState({
                         info: e.target.value,
                       })

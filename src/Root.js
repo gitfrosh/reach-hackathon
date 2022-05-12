@@ -17,7 +17,7 @@ export class Root extends React.Component {
                 <Header style={{ color: '#fff' }}>
                     <em>meow</em> - an Algorand powered microblog
                 </Header>
-                <Content style={{ padding: '50px 50px' }}>
+                <Content style={{ padding: '50px 50px', display: 'block', marginLeft: "auto", marginRight: "auto" }}>
                     <div
                         style={{ minHeight: '90vH' }}
                         className="site-layout-content"
@@ -35,7 +35,7 @@ export class Root extends React.Component {
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
-                    Built with &hearts; during <b>Women Who Code Bounty Hack</b> | 2022
+                    Built with &hearts; during <b><em>Reach</em>Women Who Code Bounty Hack</b> | 2022
                 </Footer>
             </Layout>
         )

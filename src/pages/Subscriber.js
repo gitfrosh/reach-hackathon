@@ -1,8 +1,10 @@
 import React from 'react'
 import * as SubscriberViews from './../views/SubscriberViews'
 import * as backend from './../build/index.main.mjs'
-import { PageHeader, Avatar, List, Modal, Button, Divider } from 'antd'
+import { PageHeader, Image, List, Modal, Button, Divider } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import logo from './../assets/kitty.png'
+
 export class Subscriber extends React.Component {
     constructor(props) {
         super(props)
@@ -66,7 +68,10 @@ export class Subscriber extends React.Component {
                         <List.Item>
                             <List.Item.Meta
                                 avatar={
-                                    <Avatar src="https://joeschmoe.io/api/v1/random" />
+                                    <Image
+                                        src={logo}
+                                        style={{ width: 32 }}
+                                    />
                                 }
                                 description={
                                     <div style={{ textAlign: 'left' }}>

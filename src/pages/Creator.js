@@ -19,29 +19,18 @@ export class Creator extends React.Component {
     }
     async meow() {
         const meow = await new Promise((resolveMeow) => {
-            console.log(resolveMeow)
             this.setState({ resolveMeow })
         })
         return meow || 'Test'
     }
     enterMeow(meow) {
-        this.state.resolveMeow(meow)
+        this.state?.resolveMeow && this.state.resolveMeow(meow)
     }
 
-    async runBackend() {
-        const { ctc, meow } = this.state
-        this.setState({ mode: 'BackendRunning', ctc: ctc })
-        const interact = {
-            meow: () => meow,
-        }
-        // one new meow, interact!
-        await backend.Creator(ctc, interact)
-        this.setState({ mode: 'BackendRan' })
-    }
     render() {
         let view = null
         const parent = this
-        const { mode, ctcInfoStr, ctcInfo } = this.state
+        const { mode, ctcInfoStr, ctcInfo, resolveMeow } = this.state
         if (mode === 'Start') {
             view = (
                 <Button
@@ -56,7 +45,7 @@ export class Creator extends React.Component {
         } else {
             view = (
                 <CreatorViews.BackendRunning
-                    {...{ ctcInfoStr, ctcInfo, parent }}
+                    {...{ ctcInfoStr, ctcInfo, parent, resolveMeow }}
                 />
             )
         }
