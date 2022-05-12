@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Alert, Space, Button, Typography, Menu, Card, Breadcrumb } from 'antd';
+import { Layout, Alert, Space, PageHeader, Button, Typography, Menu, Card, Breadcrumb } from 'antd';
 import {
     BrowserRouter as Router,
     Routes,
@@ -30,16 +30,13 @@ export class Root extends React.Component {
                 <Header style={{ color: '#fff' }} >
                     <em>meow</em> - an Algorand powered microblog
                 </Header>
-                <Content style={{ padding: '0 50px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
+                <Content style={{ padding: '50px 50px' }}>
                     <div style={{ minHeight: '90vH' }} className="site-layout-content">
                         <Card style={{ padding: '2rem' }}>
                           {mode === 'ConnectAccount' ? <AppViews.ConnectAccount /> : <center>
                                                                <Creator acc={acc} />
+                               
+                                                              
                                 <Subscriber acc={acc} />
 
 

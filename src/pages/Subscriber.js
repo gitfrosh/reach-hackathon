@@ -1,13 +1,13 @@
 import React from 'react';
 import * as SubscriberViews from './../views/SubscriberViews';
 import * as backend from './../build/index.main.mjs';
-import { Layout, Alert, Space, Modal, Button, Card } from 'antd';
+import {  PageHeader, Avatar, List, Modal, Button, Card, Divider } from 'antd';
 import { Link } from "react-router-dom";
-import { SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 export class Subscriber extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { mode: 'Start', isModalOpen: false };
+        this.state = { mode: 'Start', isModalOpen: false, meows: [] };
     }
     async runBackend(ctcInfoStr) { // from mode: RunBackend
         this.setState({
@@ -18,7 +18,9 @@ export class Subscriber extends React.Component {
         const interact = {
             got: (infoBytes) => {
                 console.log(infoBytes)
-                this.setState({ info: infoBytes })
+                this.setState(prevState => ({
+                    meows: [...prevState.meows, infoBytes]
+                  }))
             },
         };
         await backend.Subscriber(ctc, interact);
@@ -29,23 +31,41 @@ export class Subscriber extends React.Component {
         let bob = null;
         const parent = this;
         const { mode, info } = this.state;
-        if (mode === "Start") {
             bob = <>
-                <Modal title="Add Subscription" onCancel={() => this.setState({ isModalOpen: false})} visible={this.state.isModalOpen}>
+                <Modal footer={null} title="Add Subscription" onCancel={() => this.setState({ isModalOpen: false})} visible={this.state.isModalOpen}>
                     <SubscriberViews.RunBackend  {...{ parent }} />
                 </Modal>
-
-                <Button type="primary" onClick={() => this.setState({
-                    isModalOpen: true
-                })} icon={<SearchOutlined />}>
-                    Subscribe!   </Button>
+                <PageHeader
+    className="site-page-header"
+    title="Timeline"
+    subTitle="all the meows"
+    extra={[
+        <Button type="default" onClick={() => this.setState({
+            isModalOpen: true
+        })} icon={<PlusOutlined />}>
+            Add subscription   </Button>,
+      ]}
+  />
+               
+<Divider />
+                    <List
+    itemLayout="horizontal"
+    dataSource={this.state.meows}
+    renderItem={item => (
+      <List.Item>
+        <List.Item.Meta
+          avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+        //   title={<a href="https://ant.design">{item.title}</a>}
+          description={<div style={{textAlign: "left"}}>{item}</div>}
+        />
+      </List.Item>
+    )}
+  />
             </>
             //  }
             // else if (mode === 'RunBackend') {
             //     bob = <SubscriberViews.RunBackend {...{ parent }} />
-        } else {
-            bob = <SubscriberViews.DisplayInfo {...{ info }} />
-        }
+        
         return <SubscriberViews.SubscriberWrapper {...{ bob }} />;
     }
 }

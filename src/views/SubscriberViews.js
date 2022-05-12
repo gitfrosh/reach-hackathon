@@ -1,61 +1,38 @@
 import React from 'react';
-import {  Card } from 'antd';
+import {  Card, Button, Input } from 'antd';
 
+const { TextArea } = Input;
 export class RunBackend extends React.Component {
   render() {
     const {parent} = this.props;
     const {ctcInfoStr} = this.state || {};
     return (
       <div>
-        Creator will deploy the microblog.
+        Ask Creator for the stream info and paste it here:
         <br />
-        Ask Creator for the contract info and paste it here:
-        <br />
-        <textarea
+        <TextArea
+        style={{ marginBottom: '1rem' }}
           className='ContractInfo'
           spellCheck='false'
           onChange={(e) => this.setState({ctcInfoStr: e.currentTarget.value})}
           placeholder='{}'
         />
-        <br />
-        <button
+        
+        <Button
           disabled={!ctcInfoStr}
           onClick={() => parent.runBackend(ctcInfoStr)}
-        >Connect</button>
+        >Connect</Button>
       </div>
     );
   }
 }
 
-export class DisplayInfo extends React.Component {
-  render() {
-    const {info} = this.props;
-    if (!info) {
-      return (
-        <p>
-          Waiting for Creator to post something...
-        </p>
-      );
-    } else {
-      return (
-        <div>
-          <p>
-            Creator's recent <em>meow</em> is: <strong>{info}</strong>
-          </p>
-          <p>
-            Thank you, Subscriber. The contract has run to completion.
-          </p>
-        </div>
-      );
-    }
-  }
-}
 
 export class SubscriberWrapper extends React.Component {
   render() {
     const {bob} = this.props;
     return (
-      <Card>
+      <Card style={{ marginTop: '1rem'}}>
         {bob}
       </Card>
     );
