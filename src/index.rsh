@@ -14,18 +14,18 @@ export const main =
       got: Fun([Bytes(1000)], Null)
     })],
     (A, B) => {
-      A.publish(); 
+      A.publish();
 
-      var [ shouldContinue ] = [ true ];
-      invariant (balance() == 0);
-      while(shouldContinue) {
+      var [shouldContinue] = [true];
+      invariant(balance() == 0);
+      while (shouldContinue) {
         commit();
 
         A.only(() => {
           const meow = declassify(interact.meow());
         });
         A.publish(meow);
- 
+
         B.interact.got(meow);
 
         continue;

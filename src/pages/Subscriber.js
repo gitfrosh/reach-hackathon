@@ -1,71 +1,84 @@
-import React from 'react';
-import * as SubscriberViews from './../views/SubscriberViews';
-import * as backend from './../build/index.main.mjs';
-import {  PageHeader, Avatar, List, Modal, Button, Card, Divider } from 'antd';
-import { Link } from "react-router-dom";
-import { PlusOutlined } from '@ant-design/icons';
+import React from 'react'
+import * as SubscriberViews from './../views/SubscriberViews'
+import * as backend from './../build/index.main.mjs'
+import { PageHeader, Avatar, List, Modal, Button, Divider } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 export class Subscriber extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = { mode: 'Start', isModalOpen: false, meows: [] };
+        super(props)
+        this.state = { mode: 'Start', isModalOpen: false, meows: [] }
     }
-    async runBackend(ctcInfoStr) { // from mode: RunBackend
+    async runBackend(ctcInfoStr) {
         this.setState({
-            isModalOpen: false
+            isModalOpen: false,
         })
-        const ctcInfo = JSON.parse(ctcInfoStr);
-        const ctc = this.props.acc.attach(backend, ctcInfo);
+        const ctcInfo = JSON.parse(ctcInfoStr)
+        const ctc = this.props.acc.attach(backend, ctcInfo)
         const interact = {
             got: (infoBytes) => {
                 console.log(infoBytes)
-                this.setState(prevState => ({
-                    meows: [...prevState.meows, infoBytes]
-                  }))
+                this.setState((prevState) => ({
+                    meows: [...prevState.meows, infoBytes],
+                }))
             },
-        };
-        await backend.Subscriber(ctc, interact);
+        }
+        await backend.Subscriber(ctc, interact)
         this.setState({ mode: 'DisplayInfo' })
     }
 
     render() {
-        let bob = null;
-        const parent = this;
-        const { mode, info } = this.state;
-            bob = <>
-                <Modal footer={null} title="Add Subscription" onCancel={() => this.setState({ isModalOpen: false})} visible={this.state.isModalOpen}>
-                    <SubscriberViews.RunBackend  {...{ parent }} />
+        let view = null
+        const parent = this
+        view = (
+            <>
+                <Modal
+                    footer={null}
+                    title="Add Subscription"
+                    onCancel={() => this.setState({ isModalOpen: false })}
+                    visible={this.state.isModalOpen}
+                >
+                    <SubscriberViews.RunBackend {...{ parent }} />
                 </Modal>
                 <PageHeader
-    className="site-page-header"
-    title="Timeline"
-    subTitle="all the meows"
-    extra={[
-        <Button type="default" onClick={() => this.setState({
-            isModalOpen: true
-        })} icon={<PlusOutlined />}>
-            Add subscription   </Button>,
-      ]}
-  />
-               
-<Divider />
-                    <List
-    itemLayout="horizontal"
-    dataSource={this.state.meows}
-    renderItem={item => (
-      <List.Item>
-        <List.Item.Meta
-          avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-        //   title={<a href="https://ant.design">{item.title}</a>}
-          description={<div style={{textAlign: "left"}}>{item}</div>}
-        />
-      </List.Item>
-    )}
-  />
+                    className="site-page-header"
+                    title="Timeline"
+                    subTitle="all the meows"
+                    extra={[
+                        <Button
+                            type="default"
+                            onClick={() =>
+                                this.setState({
+                                    isModalOpen: true,
+                                })
+                            }
+                            icon={<PlusOutlined />}
+                        >
+                            Add subscription
+                        </Button>,
+                    ]}
+                />
+
+                <Divider />
+                <List
+                    itemLayout="horizontal"
+                    dataSource={this.state.meows}
+                    renderItem={(item) => (
+                        <List.Item>
+                            <List.Item.Meta
+                                avatar={
+                                    <Avatar src="https://joeschmoe.io/api/v1/random" />
+                                }
+                                description={
+                                    <div style={{ textAlign: 'left' }}>
+                                        {item}
+                                    </div>
+                                }
+                            />
+                        </List.Item>
+                    )}
+                />
             </>
-            //  }
-            // else if (mode === 'RunBackend') {
-            //     bob = <SubscriberViews.RunBackend {...{ parent }} />
-        
-        return <SubscriberViews.SubscriberWrapper {...{ bob }} />;
+        )
+        return <SubscriberViews.SubscriberWrapper {...{ view }} />
     }
 }
