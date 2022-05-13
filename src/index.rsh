@@ -8,10 +8,13 @@ export const main =
       connectors: [ALGO],
     },
     [Participant('Creator', {
-      meow: Fun([], Bytes(1000))
+      meow: Fun([], Bytes(500))
     }),
     ParticipantClass('Subscriber', {
-      got: Fun([Bytes(1000)], Null)
+      got: Fun([Object({
+        text: Bytes(500),
+        owner: Address
+      })], Null)
     })],
     (A, B) => {
       A.publish();
@@ -23,10 +26,14 @@ export const main =
 
         A.only(() => {
           const meow = declassify(interact.meow());
+          const owner = this
         });
-        A.publish(meow);
+        A.publish(meow, owner);
 
-        B.interact.got(meow);
+        B.interact.got({
+          text: meow,
+          owner: owner
+        });
 
         continue;
       }

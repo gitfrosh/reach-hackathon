@@ -35,7 +35,7 @@ export class Root extends React.Component {
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
-                    Built with &hearts; during <b><em>Reach</em>Women Who Code Bounty Hack</b> | 2022
+                    Built with &hearts; during <b><em>Reach</em>{' '}Women Who Code Bounty Hack</b> | 2022
                 </Footer>
             </Layout>
         )

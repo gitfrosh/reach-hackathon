@@ -26,7 +26,7 @@ class App extends React.Component {
     const acc = await reach.getDefaultAccount();
     const balAtomic = await reach.balanceOf(acc);
     const bal = reach.formatCurrency(balAtomic, 4);
-    this.setState({ mode: 'SelectRole', acc, bal });
+    this.setState({ mode: 'Start', acc, bal });
 
   }
   render() {

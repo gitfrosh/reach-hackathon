@@ -7,7 +7,7 @@ const startingBalance = stdlib.parseCurrency(100);
 const acc = await stdlib.newTestAccount(startingBalance);
 
 const Creator = {
-  meow : async () => {
+  meow: async () => {
     const meow = await ask(
       `Type in a blog post.. (1000 characters max including space)`
     );
@@ -16,9 +16,10 @@ const Creator = {
 }
 
 const Subscriber = {
-  got: (meow) => {
+  got: ({ text, owner }) => {
     console.log('----------new post----------');
-    console.log(meow)
+    console.log(text)
+    console.log(owner)
     console.log('----------------------------');
   }
 }
