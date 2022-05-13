@@ -17,7 +17,7 @@ export class Subscriber extends React.Component {
         const ctcInfo = JSON.parse(ctcInfoStr);
         const ctc = this.props.acc.attach(backend, ctcInfo);
         const interact = {
-            got: ({ text: text, owner: owner }) => {
+            got: ({ text, owner }) => {
                 console.log(text, owner);
                 this.setState((prevState) => ({
                     meows: [...prevState.meows, { text: text, owner: owner }],
