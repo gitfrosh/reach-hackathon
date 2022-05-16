@@ -74,7 +74,7 @@ export class BackendRunning extends React.Component {
                     value={this.state.info}
                     placeholder="cats are frens"
                     style={{ maxWidth: '90%' }}
-                    maxLength={200}
+                    maxLength={500}
                     rows={4}
                     onChange={(e) => {
                       this.setState({

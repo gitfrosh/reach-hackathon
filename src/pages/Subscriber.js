@@ -1,7 +1,7 @@
 import React from "react";
 import * as SubscriberViews from "./../views/SubscriberViews";
 import * as backend from "./../build/index.main.mjs";
-import { PageHeader, Image, Tooltip, List, Modal, Button, Divider } from "antd";
+import { PageHeader, Image, Tooltip, Space, Tag, List, Modal, Button, Divider } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import logo from "./../assets/kitty.png";
 
@@ -10,15 +10,21 @@ export class Subscriber extends React.Component {
         super(props);
         this.state = { mode: "Start", isModalOpen: false, meows: [] };
     }
+    async componentDidMount() {
+        const address = await this.props.acc.getAddress();
+        this.setState({
+            address: address
+        })
+    }
+
     async runBackend(ctcInfoStr) {
         this.setState({
             isModalOpen: false,
         });
-        const ctcInfo = JSON.parse(ctcInfoStr);
+        const ctcInfo = ctcInfoStr && JSON.parse(ctcInfoStr);
         const ctc = this.props.acc.attach(backend, ctcInfo);
         const interact = {
             got: ({ text, owner }) => {
-                console.log(text, owner);
                 this.setState((prevState) => ({
                     meows: [...prevState.meows, { text: text, owner: owner }],
                 }));
@@ -70,10 +76,12 @@ export class Subscriber extends React.Component {
                                 avatar={<Image src={logo} style={{ width: 32 }} />}
                                 title={
                                     <div style={{ textAlign: "left" }}>
-                                        <Tooltip
+                                        <Space> <Tooltip
                                             placement="topLeft"
                                             title={item.owner}
                                         >{`${item.owner?.substring(0, 8)}..`}</Tooltip>
+                                            {item.owner === this.state.address && <Tag>It's you!</Tag>}
+                                        </Space>
                                     </div>
                                 }
                                 description={
