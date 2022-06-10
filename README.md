@@ -29,3 +29,7 @@ If you want to test the contract with plain javascript CLI, (set index.js to ind
 ```bash
 npm run run-rsh
 ```
+
+## Demo Video
+
+Watch it at [YouTube](https://www.youtube.com/watch?v=zDT_POjfUrg)!
